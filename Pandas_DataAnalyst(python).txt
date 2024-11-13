@@ -1,0 +1,39 @@
+#lib - pandas, numpy, matplotlib.pyplot, seaborn
+
+#pandas#Basic_Function:
+To read CSV file - df=pd.read_csv("file_name.csv")
+To exprot CSV file - df.to_csv("file_name.csv")
+
+To show the first n rows - df.head(n)
+To show the last n rows - df.tail(n)
+All Infomation of dataframe - df.info()
+Statitcal description on numerial columns - df.describe()
+To show data type - df.dtype, type(df.column_name)
+length of dataframe - len(df)
+length od column - len(df['column_name'])
+
+To printout only column_names - df.columns
+To provide demensions of table - df.shape
+shows the index of dataframe - df.index
+To return unique values in column - df.unique()
+To count the unquies are repeated - df.value_counts()
+For n number of radom rows in table - df.sample(n)
+
+To access specific single columns - df.column_name, df['column_name']
+single column with format - df[['column_name]]
+To access multipe column - df[['column1, column2, column3']]
+to access specific row with specific column - df['column_name'][index_no]
+to access specific row - df.iloc[index_no]
+slicing the rows - df.iloc[90 : 100]
+slicing the rows with column - df.iloc[row_index_no, column_index_no], df.iloc[90:100, 0:3] or df['column1, column2, column3'].iloc[90:100]
+
+access specific values - df['column_name']="value"
+values in format - df[df['column_name']="value"]
+multipe conditional values - df[(df['column_name1']="value") & (df['column_name2']>100)]
+#conditional_statments
+-- AND- &  OR- |
+
+to access only values in column and ignoers null(for only numerial column)- df['column_name'].notna()
+to assign name for index - df.index.name
+to specifing index for already exisiting columns - df=pd.read_csv("faile_name.csv",index_col ="column_name") 
+
