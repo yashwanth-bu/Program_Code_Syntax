@@ -1,39 +1,134 @@
 #lib - pandas, numpy, matplotlib.pyplot, seaborn
 
 #pandas#Basic_Function:
-To read CSV file - df=pd.read_csv("file_name.csv")
-To exprot CSV file - df.to_csv("file_name.csv")
+To read CSV file 
+-- df=pd.read_csv("file_name.csv")
+To exprot CSV file
+-- df.to_csv("file_name.csv")
 
-To show the first n rows - df.head(n)
-To show the last n rows - df.tail(n)
-All Infomation of dataframe - df.info()
-Statitcal description on numerial columns - df.describe()
-To show data type - df.dtype, type(df.column_name)
-length of dataframe - len(df)
-length od column - len(df['column_name'])
+To show the first n rows
+-- df.head(n)
+To show the last n rows 
+-- df.tail(n)
+All Infomation of dataframe 
+-- df.info()
+Statitcal description on numerical columns 
+-- df.describe()
+To show data type 
+-- df.dtype, type(df.column_name)
+length of dataframe
+-- len(df)
+length od column 
+-- len(df['column_name'])
 
-To printout only column_names - df.columns
-To provide demensions of table - df.shape
-shows the index of dataframe - df.index
-To return unique values in column - df.unique()
-To count the unquies are repeated - df.value_counts()
-For n number of radom rows in table - df.sample(n)
+To printout only column_names 
+-- df.columns
+To provide demensions of table 
+-- df.shape
+shows the index of dataframe 
+-- df.index
+To return unique values in dataframe 
+-- df.unique()
+To count the unquies are repeated 
+-- df.value_counts()
+For n number of radom rows in table 
+-- df.sample(n)
 
-To access specific single columns - df.column_name, df['column_name']
-single column with format - df[['column_name]]
-To access multipe column - df[['column1, column2, column3']]
-to access specific row with specific column - df['column_name'][index_no]
-to access specific row - df.iloc[index_no]
-slicing the rows - df.iloc[90 : 100]
-slicing the rows with column - df.iloc[row_index_no, column_index_no], df.iloc[90:100, 0:3] or df['column1, column2, column3'].iloc[90:100]
+To access specific single columns 
+-- df.column_name, df['column_name']
+single column with format 
+-- df[['column_name]]
+To access multipe column 
+-- df[['column1, column2, column3']]
+to access specific row with specific column 
+-- df['column_name'][index_no]
+to access specific row 
+-- df.iloc[index_no]
+slicing the rows 
+-- df.iloc[90 : 100]
+slicing the rows with column 
+-- df.iloc[row_index_no, column_index_no], df.iloc[90:100, 0:3] or df['column1, column2, column3'].iloc[90:100]
 
-access specific values - df['column_name']="value"
-values in format - df[df['column_name']="value"]
-multipe conditional values - df[(df['column_name1']="value") & (df['column_name2']>100)]
+access specific values 
+-- df['column_name']="value"
+values in format 
+-- df[df['column_name']="value"]
+multipe conditional values 
+-- df[(df['column_name1']="value") & (df['column_name2']>100)]
 #conditional_statments
 -- AND- &  OR- |
 
-to access only values in column and ignoers null(for only numerial column)- df['column_name'].notna()
-to assign name for index - df.index.name
-to specifing index for already exisiting columns - df=pd.read_csv("faile_name.csv",index_col ="column_name") 
+to access only values in column and ignoers null(for only numercial column)
+-- df['column_name'].notna()
+to assign name for index 
+-- df.index.name
+to specifing index for already exisiting columns 
+-- df=pd.read_csv("faile_name.csv",index_col ="column_name")
+to create new columns 
+-- df['new_column_name']=df['column'].function
 
+#column with functions
+-- df['column_name'].unique() or multipe columns - df[['column1, column2, column3']].unique()
+-- df['column_name'].head(n)
+-- df['column_name'].tail(n)
+-- df['column_name'].dtype()
+-- df['column_name'].value_counts()
+-- df['column_name'].sample()
+-- df['numerical_column_name'].describe()
+
+#cleaning and its functions
+datatime - from string to actual datatime format
+-- df['datetime']=pd.to_datetime(df['datetime_in string'])
+to convert futher(for month,year,month-year and more)
+-- df['month']=df['datetime_in datetime_format'].dt.month
+-- df['year']=df['datetime_in datetime_format'].dt.year
+to convert month names to numbers
+-- df['number_month']=df['month'].dt.strftime('%B or %b')
+
+sort_values - arranging the values on requirements
+-- df.sort_values('column_based_which arrage',inplace=True,ascending=False)
+-- inplace=True : which modifies the current dataframe without creating new datafarme(variable)
+
+drop the columns
+-- df.drop(labels='column_name',axis=1,inplace=True)
+
+droping non/null/na values 
+-- df.dropna(subset=['column_name'],inplace=True)
+
+filling na values
+-- df['column_name']fillna("value")
+with arg functions
+-- df['column_name']fillna(df['column'].median(), inplace=True)
+-- df['current_column_name']=df['column_name']fillna(df['column'].median())
+
+to drop duplicates
+from datafarme
+-- df=df.drop_duplicates()
+specific columns
+-- df=df.drop_duplicates(subset=['column1','column2'])
+
+#analysis and functions
+arg functions - only on numercial valued column but some function which used on both
+-- df['column_name'].max()
+-- df['column_name'].min()
+-- count(), mean(), median(), mode(), avg(), sum(), size(), idxmin(), idxmax(), value_counts() and more
+using multipe arg function at onces
+-- df['column_name'].count(),sum(),avg()
+using multipe column
+-- df[['column1',column2]].count(),sum(),avg()
+
+Group By
+helps to order specific individual values arg function values
+-- df.groupby('column_name')['column_argFunction'].min()
+multipe column
+-- df.groupby(['column1','column2'])['column_argFunction'].min()
+multipe arg column
+-- df.groupby('column_name')[['column1_argFunction','column2_argFunction']].min()
+multipe column and arg column
+-- df.groupby(['column1','column2'])[['column1_argFunction','column2_argFunction']].min()
+multipe arg functions
+-- df.groupby(['column1','column2'])[['column1_argFunction','column2_argFunction']].agg(['mean','sum','min','maax'])
+
+copy the original to another (if you use new varible )
+-- newdf=original_df.copy()
+(if you use new datafarme it still some functions will change the original_df -- newdf=original_df)
