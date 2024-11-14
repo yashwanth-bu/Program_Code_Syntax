@@ -1,0 +1,480 @@
+##CORE CONCEPTS FOR SQL DATABASE MANGEMENT system
+
+#Database 
+-- show databases;
+-- create database name;
+-- create database if not exists name;
+-- drop database name;
+-- drop database if exists name;
+-- use name;
+
+#DataTypes
+-- INT, Decimal(m,n), varchar(n)
+-- BLOB - binary large object(image, videos and others)
+-- date, timestamp - (y-m-d h-m-s)
+
+#Table
+-- show tables;
+-- create table name(column1 int primary key, column2 varchar(n),column3 varchar(n));
+-- create table if not exists name(column1 int primary key, column2 varchar(n),column3 varchar(n));
+-- describe table_name;
+-- drop table table_name;
+-- drop table if exists table_name;
+-- insert into table_name values('','');
+insert specific attributes 
+-- insert into table_name(column1, column3) values('','');
+
+#modification
+creating new column
+-- alter table table_name add new_column_name datatype;
+to drop column
+-- alter table table_name drop column column_name;
+
+#manipulation
+-- select * from table_name;
+-- select column1,column2,column3 from table_name;
+-- select table_name.column1 from table_name;
+-- select column1,column2,column3 from table_name order by column2;
+-- select column1,column2,column3 from table_name order by column2,column1;
+-- select column1,column2,column3 from table_name order by column2 desc/asc;
+-- select * from table_name limit 5;
+-- select column1,column2,column3 from table_name limit 3;
+-- select column1,column2,column3 from table_name order column2 desc limit 5;
+-- select * from table_name order column2 desc limit 5;
+-- select * from table_name where column1='value';
+-- select * from table_name where column1='value' and/or column3='value';
+-- select * from table_name where column1 in ('value','value')
+-- select * from table_name limit value;
+-- select column1, column2 from table_name limit value;
+-- select column1,column2,column3 from table_name where column1='value' and/or column3>'value';
+logical operators - AND / OR
+comparision operators (=,<,>,<=,>=,<> not equal)
+
+updating specific value
+-- update table_name set column1='value' wher id='value';
+-- update table_name set column1='value' wher id='value' or/and column2='value';
+-- update table_name set column1='value', column3='value' wher id='value';
+update complete column
+-- update table_name set column1='value';
+
+to delete compelete row
+-- delete from table_name where id=value;
+-- delete from table_name where column1='value' or/and column3='value';
+to delete all row at once
+-- delete from table_name;
+
+
+#constrints
+primary key - unqiue values, can't be NULL, no duplicates
+-- create table name(column1 int primary value,column2 varchar(n) primary key);
+NOT NUll - can't left empty
+-- create create table name(column1 int not null);
+unqiue - values must br unqiue, no duplicates
+-- create table name(column1 int unqiue);
+default 'value_to_store' - it auto stores given value when it don't fill it
+-- create table name(column1 int default "Not required");
+auto_increment - used to auto increment (primary key)
+create table name(column1 int primary value auto_increment);
+foreign key - its key which connect with other tables using primary keys
+inserting within table creation
+-- create table name(column1 int primary key, column2 varchar(n),foreign key(column2) references table2_name(primary key) on delete set null);
+insert from table creation
+-- create table name(column1 int primary value,column2 varchar(n));
+   alter table table_name add foreign key(column2) references table2_name(primary key) on delete set null;
+
+#basic queries
+Allies - naming the label of table
+-- select column1 as first_name, column2 as second_name from table_name;
+Distinct - filters only with unqiue values
+-- select distinct sex from table_name;
+arg Functions
+count(), min(), max(), avg(), sum() and other
+-- select count(column) from table_name;
+-- selct max(column) from table_name;
+-- selct sum(column) from table_name;
+multipe arg function
+-- select max(column), min(column), avg(column), sum(column) from table_name;
+
+#wildcards
+searching specific items based on patters they match
+there are two special characters
+% - any number of characters
+-- select * from table_name where column like '%value%';
+'%value%' - the modules define any numbers of characters on both end; '%value' - only left end; 'value%' - only right end;
+
+_ - only one character
+-- select * from table_name where column like '___value__';
+'___value__' - it only search for left with 4 char and right with 2 char 
+
+combining the both
+-- select * from table_name where column like '__value%';
+-- select * from table_name where column like '__value__%';
+-- select * from table_name where column like '%_value__%;
+
+#Union
+to combine two different columns in different tables
+condition : same number of columns in two different queries 
+-- select column from table_name union select column from table2_name;
+
+#joins
+it joins the different or same table using primary keys as the link
+there is three types of join 
+self join
+its joins the same table values
+-- select * from table1_name join table1_name on table1_name.primarykey=table1_name.primarykey;
+
+inner join
+-- select * from table1_name as t1 inner join table2_name as t2 on t1.primarykey=t2.primarykey;
+
+outer join(2types)
+right join
+select's only right tables all values if thier is no link then that will shown as NULL
+-- select columnt1,columnt2 from table1_name as t1 right join table2_name as t2 on t1.primarykey=t2.primarykey;
+
+left join
+select's only left tables all values if thier is no link then that will shown as NULL
+-- select columnt1,columnt2 from table1_name as t1 left join table2_name as t2 on t1.primarykey=t2.primarykey;
+
+joining multipe tables 
+-- select * from table1_name join table2_name on table2_name.primarykey=table1_name.primarykey join table3_name on table3_name.primarykey=table1_name.primarykey;
+ 
+#Nested queries
+linking the two different queries
+here we use two different formats
+
+IN format
+-- select table1_name.column from table1_name where column2 in(select table2_name.column from table2_name where table2_name.column1>codition);
+
+= format
+-- select table1_name.column from table1_name where column2 = (select table2_name.column from table2_name where table2_name.column1>codition limit);
+if using this froamt using limit option is better
+-- select table1_name.column from table1_name where column2 > (select table2_name.column from table2_name where table2_name.column1>codition limit);
+here we can also you comparision operators
+
+On delete function
+on delete set null - when primary key value is delete from table1 which is linked as foreign key in table2 will set as null
+-- foreign key(column) references table_name(column) on delete set null;
+in delete set cascade - when primary key value is delete from table1 which is linked as foreign key in table2 where entire row will delete
+-- foreign key(column) references table_name(column) on delete set cascade;
+
+nested coditions
+-- select * from table_name where (column1=value and column2=value)or column3=value;
+-- select * from table_name where column1=value and (column2=value or column3=value);
+-- select * from table_name where (column1=value or column2=value)or column3=value;
+
+Group by
+mainly ussed in arg function for group them with specific columns 
+unqiue combination 
+-- select column1, avg(column2) from table_name group by column1;
+-- select column1,column2, avg(column3),sum(column3) from table_name group by column1, column2;
+-- select column1, avg(column2) as average_column from table_name group by column1 order by average_column desc limit;
+condition before grouping them
+-- select column1, avg(column2) as average_column from table_name where column > value group by column1;
+mainly in group by function we uses having function for condition statment after grouping them
+-- select column1, avg(column2) as average_column from table_name group by column1 having ;
+
+#String function
+length() - it determines the length of value
+-- select column, length(column) from table_name;
+
+upper()/lower() 
+manipulate cases upper() - all capital / lower() - all small 
+-- select upper(column) from table_name;
+-- select lower(column) from table_name;
+
+trim()
+it trim out the with space on both side
+-- select trim(column) from table_name;
+right trim - only right side
+-- select rtrim(column) from table_name;
+left trim - only left side
+-- select ltrim(column) from table_name;
+
+left()/right()
+help in print out length 
+-- select column, left(column) from table_name;
+-- select column, right(column) from table_name;
+
+substring()
+help in print out by pointer
+-- select column, substring(column, 2,5);
+it start from 2 end at 4 before 5
+
+replace()
+help to replace char, combination of chars, word
+-- select column,replace(column,'a','z');
+it fill replace a with z
+-- select column,replace(column,'ab','zx');
+-- select column,replace(column,'arjun','ullas');
+
+locate()
+-- select locate('an',column) from table_name;
+
+concat()
+combine two different columns and merge them
+
+#advance queries
+case statment
+its like using if, elif, else statment
+-- select column1, column2, case when age<= 20 then 'young' end from table_name;
+multiple condition in single case
+-- select column1, column2, case when age<= 20 then 'young' when age between 20 and 50 then 'old' when age >= 50 then 'super old' end as age bracket from table_name;
+multipe case statment
+-- select column1, column2, case when age<= 25 then 'beginner' end, case when salary>60000 then 'experience' from table_name;
+case function with maths
+-- select column1, column2, case when salary<= 50000 then salary * 0.05 when salary < 50000 then salary * 0.1 end from table_name;
+you use multiple case statment with multipe conditons 
+
+#window function
+over(parition by)
+to perform arg fuction with specific column we use group by function 
+but thse window functions are better
+these function give full independence for arg functions
+-- select column1, column2, avg(column3) over (parititon by column2) from table_name;
+-- select column1, column2, avg(column3), sum(column1), count(column2) over (parititon by column2) from table_name;
+
+row_number()
+it the id like number for same values ex-
+it mainly used to detect duplicate value in table buy sing combination of columns
+value1  1
+value2  1
+value1  2
+value3  1
+value4  1
+value2  2
+value5  1
+-- select column1, row_number() over (parition by column1) from table_name;
+for combination of two columns
+-- select column1, column2 row_number() over (parition by column1, column2) from table_name;
+
+rank()
+same as row_number but duplicate are allowed it give the rank based on position of next number 
+
+dense_rank()
+same as rank() it give the rank based on numerical form
+
+common table expersions(CTEs)
+to create tempory table for user reference only use once at time
+basic structure - with cte_name as(query)select * cte_name;
+-- with cte_name as (select column1,avg(column1) from table1_name group by column1)select * from cte_name;
+
+with operation
+-- with cte_name as (select column1,avg(column1)as average_value from table1_name group by column1)select column1 from cte_name where average_value>value;
+
+multipe CTEs
+-- with cte_name1 as (select column_id,column1,avg(column1) from table1_name group by column_id,column1) 
+with cte_name2 as(select column_id,column2, sum(column2)from table1_name group by column_id,column2 having(column2>value)) 
+select * from cte_name1 join cte_name2 on cte_name1.column_id=cte_name2.column_id;
+
+
+temporary table
+unlike CTEs these table can use multipe time until server exisit, once server is close then temporary table will delete automatically
+-- create temporary table temp_name(column1 int, column2 varchar(20));
+
+create temporary table for original table values
+-- create temporary table temp_name select * from table_name;
+
+it can used with operation
+-- create temporary table temp_name select * from table_name where column2>value;
+
+stored procedures
+these are permanent type of storages they can acess even after server closed and open agian 
+-- create procedure procedure_name() select * from table_name;
+-- create procedure procedure_name() select * from table_name where column2>value;
+
+to access the store
+-- call procedure_name()
+
+with multipe query in stored procedure
+it create two differnt tables in one storage procedure
+-- delimiter $$
+create procedure procedure_name() begin select * from table_name where column1>value; select * from table_name column2<500000; end $$
+delimiter ;
+
+store procedure with parameters
+-- delimiter $$
+create procedure procedure_name(procedure_id int) begin select * from table_name where column2>value where procedure_id=column_id; end$$
+delimiter ;
+now calling the storage 
+call procedure_name(id)
+call procedure_name(2)
+
+trigger
+-- delimiter $$
+create trigger trigger_name after insert on table1_name for each row 
+begin insert into table2_name(id int, column varchar(20)) values(new.table1_name.id, new.table1_name.column); end $$
+delimiter ;
+when we insert the new values into table1_name then it automatically trigger the insertion of new values into table2_name
+
+events
+-- delimiter $$
+create event event_name on schedule every 1 month do 
+begin delete from table_name where column >=value; end $$
+delimiter ;
+this query run automatically in system in every once in month and perform the the give task
+you can change time and task based on operation
+
+------  <END>  ------
+
+##SQL QUERIES USED IN DATA ANALYST
+
+#cleaning methods
+
+-- removing NULL values 
+delete from table_name where column1 is null or column2 is null or column3 is null;
+
+-- unrealstic values (like age: -10 or 900/ price: -345)
+delete from table_name where age<0 or age>100;
+
+DELETE FROM table_name WHERE Amount < 0;
+
+-- finding average of specific column
+select avg(age) from table_name;
+
+-- finding median
+select avg(salary) from(
+select *,row_number() over(order by salary desc)as desc_salary,row_number() over(order by salary asc) as asc_salary from fake_data where salary is not null
+)as temp_table
+where asc_salary in (desc_salary,desc_salary + 1,desc_salary-1);
+
+-- cleaning date formt
+UPDATE Customers
+SET PurchaseDate = STR_TO_DATE(PurchaseDate, '%m/%d/%Y')
+WHERE PurchaseDate LIKE '__/__/____';
+
+UPDATE Customers
+SET PurchaseDate = STR_TO_DATE(PurchaseDate, '%Y/%m/%d')
+WHERE PurchaseDate LIKE '____/__/__';
+
+UPDATE Customers
+SET PurchaseDate = STR_TO_DATE(PurchaseDate, '%m-%d-%Y')
+WHERE PurchaseDate LIKE '__-__-____';
+
+SELECT REPLACE(phone_column, '-', '') AS cleaned_date
+FROM table_name;
+
+-- cleaning phone number
+UPDATE Customers
+SET Phone = REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(Phone, '(', ''), ')', ''), '-', ''), ' ', ''), '.', '')
+WHERE Phone IS NOT NULL;
+
+DELETE FROM Customers
+WHERE Phone NOT REGEXP '^[0-9]+$';
+
+DELETE FROM Customers
+WHERE LENGTH(Phone) != 10;
+
+SELECT REPLACE(phone_column, '-', '') AS cleaned_phone
+FROM table_name;
+
+-- removing duplicates
+with duplicates as(
+select *,row_number() over(partition by data_name, age, city) as row_num from fake_data
+)delete from fake_data where id in (
+select id from duplicates where row_num>1
+);
+
+DELETE FROM fake_data
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM fake_data
+    GROUP BY name, city, gender
+);
+
+-- updateing the NULL values
+update fake_data set age=33 where age is NULL;
+
+update fake_data set salary=51000.0 where salary is NULL;
+
+update fake_data set salary=COALESCE(salary, 51000.00)where salary is null;
+
+update fake_data set salary=ifnull(salary, 51000.00)where salary is null;
+
+UPDATE table_name SET column_name = 'Default Value' WHERE column_name IS NULL;
+
+-- accessing specific columns without NULL values
+select * from fake_data where age is not null and salary is not null;
+
+select * from fake_data where age is not null or salary is not null;
+
+-- initial letter of word want to capital
+UPDATE fake_data SET gender = INITCAP(gender);
+
+
+-- to remove the special characters
+DELETE FROM table_name
+WHERE column_name NOT REGEXP '^[0-9]+$';
+
+DELETE FROM table_name WHERE column_name LIKE '%[^0-9]%';
+
+-- accessing non special character values in column
+SELECT *
+FROM table_name
+WHERE column_name NOT LIKE '%[^0-9]%';
+
+
+-- replacing the values
+UPDATE table_name
+SET column_name = REPLACE(column_name, 'old_value', 'new_value');
+
+SELECT REPLACE(phone_column, '-', '') AS cleaned_phone
+FROM table_name; --or dat/time column
+
+update table_name set age=30 where id=3;
+
+-- Extracting Substrings
+SELECT SUBSTRING(column_name, 1, 5) AS substring FROM table_name;
+
+-- SELECT DISTINCT VALUES
+SELECT DISTINCT column1, column2, column3
+FROM table_name;
+
+-- Trimming Extra Spaces
+SELECT TRIM(column_name) AS cleaned_column
+FROM table_name;
+
+UPDATE table_name
+SET column_name = TRIM(column_name);
+
+-- Converting a column to a specific type:
+SELECT CAST(column_name AS INT) AS converted_column
+FROM table_name;
+
+-- upper or lower case format
+SELECT UPPER(column_name) AS standardized_column
+FROM table_name;
+
+SELECT LOWER(column_name) AS standardized_column
+FROM table_name;
+
+-- Replace NULL values using the value from another column or a related row
+UPDATE table_name
+SET column_name = (SELECT related_column FROM related_table WHERE condition)
+WHERE column_name IS NULL;
+
+-- Handling Outliers
+SELECT *
+FROM Customers
+WHERE ABS(Age - (SELECT AVG(Age) FROM Customers)) <= 2 * (SELECT STDDEV(Age) FROM Customers);
+
+-- Dealing with Categorical Data
+SELECT column_name,
+       CASE WHEN column_name = 'Category 1' THEN 1 ELSE 0 END AS category_1,
+       CASE WHEN column_name = 'Category 2' THEN 1 ELSE 0 END AS category_2
+FROM table_name;
+
+
+-----  <END>  -----
+
+##MACHENICAL KEY CONCEPTS IN SQL
+
+#Key points
+-- Disable Safe Updates Temporarily
+SET SQL_SAFE_UPDATES = 0;
+
+-- Re-enable Safe Updates
+SET SQL_SAFE_UPDATES = 1;
+
+
+
+
